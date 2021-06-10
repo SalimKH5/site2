@@ -1,0 +1,326 @@
+{% load static%}
+<!DOCTYPE html>
+<html>
+	<head>
+        <head>
+            <title>anime_dz</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+            <script type="text/javascript" src="https://apis.google.com/js/api.js" gapi_processed="true"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/js/fileinput.min.js" integrity="sha512-1FvXwt9wkKd29ilILHy0zei6ScE5vdEKqZ6BSW+gmM7mfqC4T4256OmUfFzl1FkaNS3FUQ/Kdzrrs8SD83bCZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/piexif.min.js" type="text/javascript"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/sortable.min.js" type="text/javascript"></script>
+            <!-- bootstrap 5.x or 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.0/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<!-- if using RTL (Right-To-Left) orientation, load the RTL CSS file after fileinput.css by uncommenting below -->
+<!-- link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.0/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
+<!-- the font awesome icon library if using with `fas` theme (or Bootstrap 4.x or 5.x). Note that default icons used in the plugin are glyphicons that are bundled only with Bootstrap 3.x. -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you
+    wish to resize images before upload. This must be loaded before fileinput.min.js -->
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.0/js/plugins/piexif.min.js" type="text/javascript"></script>
+<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
+    This must be loaded before fileinput.min.js -->
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.0/js/plugins/sortable.min.js" type="text/javascript"></script>
+<!-- popper.min.js below is needed if you use bootstrap 4.x or 5.x (for popover and tooltips). You can also use the bootstrap js 
+   3.3.x versions without popper.min.js. -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<!-- bootstrap.min.js below is needed if you wish to zoom and preview file content in a detail modal
+    dialog. bootstrap 5.x or 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<!-- the main fileinput plugin file -->
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.0/js/fileinput.min.js"></script>
+<!-- following theme script is needed to use the Font Awesome 5.x theme (`fas`) -->
+<!-- optionally if you need translation for your language then include the locale file as mentioned below (replace LANG.js with your language locale) -->
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.0/js/locales/LANG.js"></script>
+            <style>
+    #first
+    {
+        width: 600px;
+       margin-top: 100px; 
+       margin-left: 100px;
+    }
+    #second
+    {
+        width: 600px;
+       margin-top: 100px; 
+       margin-left: 60px;
+       margin-bottom:100px;
+    }
+    #container{
+        display:none;
+        visibility: hidden;
+    }
+    #container1{
+        display:none;
+        visibility: hidden;
+    } 
+    .container>.player-buttons{
+        background: url('http://cdn1.iconfinder.com/data/icons/iconslandplayer/PNG/64x64/CircleBlue/Play1Pressed.png') center center no-repeat;
+        height: 128px;
+        left: 50%;
+        margin: -64px 0 0 -64px;
+        position: absolute;
+        top: 50%;
+        width: 128px;
+        z-index: 1; 
+    }
+    #snap,#snap1
+    {
+        margin-left: 200px;
+    }
+    #verfication
+    {
+      margin-left:500px;
+      margin-right:300px;
+    }
+    </style>
+        </head>
+<body>
+    {% include 'kinship/navbar.html' %}
+    <div style="display:flex">
+      
+    <div style="display: flexbox;">
+    <div id="first" class="card" >
+        <div class="card-header">Premiere image</div>
+        <div class="card-body" style="display: flex; ">
+            <button id="button" role="button" class="btn btn-primary" title="Add sample: Webcam" onclick="change()" style="margin-right:50px;">
+                <svg class="sample-source-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#1967D2" fill-rule="evenodd" clip-rule="evenodd" d="M18 6V10.48L22 6.5V17.5L18 13.52V14.52V18C18 19.1 17.1 20 16 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4H16C17.1 4 18 4.9 18 6ZM16 14.52V9.69V6H4V18H16V14.52Z"></path>
+                </svg>
+                <span class="sample-source-label"><!---->Webcam<!----></span>
+                </button>
+                <input type='file' onchange="readURL(this);" />
+                
+                  </div>
+            <div id="container">
+                <video autoplay="true" id="videoElement"> 
+                    <div class="player-buttons"></div>
+                </video>
+            </div>
+            <p><span id="errorMsg"></span></p>
+<!-- Trigger canvas web API -->
+<img id="blah" src="#" alt="your image" style="display:none;" />
+<div class="controller">
+    <button id="snap" class="btn btn-primary"  >Capture</button>
+    <canvas id="canvas"width="640" height="480" style="display:none;" onchange="loadFile(event)" ></canvas>
+    
+  </div>
+
+               <script>
+                function readURL(input) {
+                  document.getElementById('blah').style.cssText="display:block;  margin-left:100px;";
+                  if (input.files && input.files[0]) {
+                      var reader = new FileReader();
+
+                      reader.onload = function (e) {
+                          $('#blah')
+                              .attr('src', e.target.result)
+                              .width(350)
+                              .height(300);
+                              
+                            };
+                           
+                      reader.readAsDataURL(input.files[0]);
+                  }
+              }
+                   j=0;
+                function showcamera()
+                {
+                    document.getElementById("container").style.cssText="  visibility: visible;display:block; margin: 0px auto;width: 500px;height: 375px; border: 10px #333 solid;"
+                document.querySelector("#videoElement").style.cssText="width: 500px;height: 375px;background-color: #666;";
+                var video = document.querySelector("#videoElement");
+                    
+                if (navigator.mediaDevices.getUserMedia) {
+                  navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function (stream) {
+                      video.srcObject = stream;
+                    })
+                    .catch(function (err0r) {
+                      console.log("Something went wrong!");
+                    });
+                }
+            }      
+            function stop() {
+                document.getElementById("container").style.cssText="   visibility: hidden; display:none;"
+                var video = document.getElementById("videoElement");
+                var stream = video.srcObject;
+                var tracks = stream.getTracks();
+              
+                for (var i = 0; i < tracks.length; i++) {
+                  var track = tracks[i];
+                  track.stop();
+                }
+              
+                video.srcObject = null;
+              }
+              function change()
+              {
+                  if(j==0)
+                  {
+                    showcamera()
+                    j=j+1;
+                }else
+                  {
+                    stop();
+                    j=0;
+                  }
+
+              }     
+            
+              'use strict';
+              const video =document.getElementById("videoElement");
+              const canvas = document.getElementById('canvas');
+              const snap = document.getElementById("snap"); 
+
+              var context = canvas.getContext('2d');
+              snap.addEventListener("click", function() {
+                context.drawImage(video, 0, 0,350 , 300);
+                var stream = video.srcObject;
+                var tracks = stream.getTracks();
+              
+                for (var i = 0; i < tracks.length; i++) {
+                  var track = tracks[i];
+                  track.stop();
+                }
+              j=0;
+                video.srcObject = null;
+                document.getElementById("container").style.cssText="display:none";
+                document.getElementById("canvas").style.cssText="display:block;margin-left:50px; ";
+            }) 
+           
+        </script>  
+                
+        </div>
+      </div>  
+
+      <div id="second" class="card" >
+      <div class="card-header">Seconde image</div>
+      <div class="card-body">
+          <button id="button1" role="button" class="btn btn-primary" title="Add sample: Webcam" onclick="change1()">
+              <svg class="sample-source-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#1967D2" fill-rule="evenodd" clip-rule="evenodd" d="M18 6V10.48L22 6.5V17.5L18 13.52V14.52V18C18 19.1 17.1 20 16 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4H16C17.1 4 18 4.9 18 6ZM16 14.52V9.69V6H4V18H16V14.52Z"></path>
+              </svg>
+              <span class="sample-source-label"><!---->Webcam<!----></span>
+              </button>
+              <input type='file' onchange="readURL1(this);" />
+          </div>
+          <div id="container1">
+              <video autoplay="true" id="videoElement1"> 
+                  <div class="player-buttons"></div>
+              </video>
+          </div>
+          <p><span id="errorMsg"></span></p>
+          <img id="blah1" src="#" alt="your image" style="display:none;" />
+<!-- Trigger canvas web API -->
+<div class="controller">
+  <button id="snap1" class="btn btn-primary" onclick="capture1()" >Capture</button>
+  <canvas id="canvas1"width="640" height="480" style="display:none;" ></canvas>
+</div>
+             <script>
+              function readURL1(input) {
+                document.getElementById('blah1').style.cssText="display:block;  margin-left:100px;";
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#blah1')
+                            .attr('src', e.target.result)
+                            .width(350)
+                            .height(300);
+                            
+                          };
+                         
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+                 m=0;
+              function showcamera1()
+              {
+                  document.getElementById("container1").style.cssText="  visibility: visible;display:block; margin: 0px auto;width: 500px;height: 375px; border: 10px #333 solid;"
+              document.querySelector("#videoElement1").style.cssText="width: 500px;height: 375px;background-color: #666;";
+              var video1 = document.querySelector("#videoElement1");
+                  
+              if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                  .then(function (stream) {
+                    video1.srcObject = stream;
+                  })
+                  .catch(function (err0r) {
+                    console.log("Something went wrong!");
+                  });
+              }
+          }      
+          function stop1() {
+              document.getElementById("container1").style.cssText="   visibility: hidden; display:none;"
+              var video1 = document.getElementById("videoElement1");
+              var stream1 = video1.srcObject;
+              var tracks1= stream1.getTracks();
+            
+              for (var i = 0; i < tracks1.length; i++) {
+                var track = tracks1[i];
+                track.stop();
+              }
+            
+              video1.srcObject = null;
+            }
+            function change1()
+            {
+                if(m==0)
+                {
+                  showcamera1()
+                  m=m+1;
+              }else
+                {
+                  stop1();
+                  m=0;
+                }
+
+            }     
+          function capture1(){
+            'use strict';
+            const video1 =document.getElementById("videoElement1");
+            const canvas1 = document.getElementById('canvas1');
+            const snap1 = document.getElementById("snap1"); 
+
+            var context1 = canvas1.getContext('2d');
+            snap1.addEventListener("click", function() {
+              context1.drawImage(video1, 0, 0,350 , 300);
+              var stream1 = video1.srcObject;
+              var tracks1 = stream1.getTracks();
+            
+              for (var i = 0; i < tracks1.length; i++) {
+                var track = tracks1[i];
+                track.stop();
+              }
+            m=0;
+              video1.srcObject = null;
+              document.getElementById("container1").style.cssText="display:none";
+              document.getElementById("canvas1").style.cssText="display:block; margin-left:60px; ";
+          }) 
+        }
+        var loadFile = function(event) {
+          var image = document.getElementById('canvas');
+          image.src = URL.createObjectURL(event.target.files[0]);}
+        
+      </script>  
+              
+      </div>
+    </div>  
+    
+  </div>
+  <div class="card" id="verfication"Style="margin-bottom:150px">
+    <div class="card-header">Verification</div>
+      <div class="card-body" >
+        <button class="btn btn-primary" Style="margin-left:150px;margin-right:150px;"> Le't go</button>
+        </div>
+  </div>
+  </div>
+</body>
+</html>
